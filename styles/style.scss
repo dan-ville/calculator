@@ -1,0 +1,105 @@
+$grapefruit-bg: linear-gradient(to right, rgb(4, 20, 32), rgb(2, 55, 95));
+$grapefruit-btn: rgb(255, 69, 0);
+$grapefruit-btn-txt: white;
+$grapefruit-output-1: rgba(68, 128, 241, 0.7);
+$grapefruit-output-2: #ffffff;
+$grapefruit-sidebar: rgb(4, 20, 32);
+
+$jungle-bg: linear-gradient(to right,rgb(0, 102, 14), rgb(0, 192, 26));
+$jungle-btn: yellow;
+$jungle-btn-text: yellow;
+$jungle-output-1: yellow;
+$jungle-output-2: yellow;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: "Squada One", "sans-serif";
+  font-weight: normal;
+  font-size: 20px;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background: $grapefruit-bg;
+  color: white;
+}
+
+#app-grid {
+    // display: grid;
+    // grid-template-columns: 400px 1fr;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+// #toggle-div {
+//     grid-column: 1 / 3;
+//     background-color: $grapefruit-bg;
+//     display: flex;
+//     justify-content: flex-end;
+//     align-items: center;
+//     padding-right: 3rem;
+// }
+
+// #documentation {
+//     grid-column: 1 / 2;
+//     padding: 2rem;
+//     background-color: $grapefruit-sidebar;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-evenly;
+//     align-content: center;
+//     border-right: 10px solid rgba(255, 255, 255, 0.5);
+// }
+
+#calc-grid {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  min-height: 100vh;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+  
+  button {
+    color: $grapefruit-btn-txt;
+    cursor: pointer;
+    font-size: 2rem;
+    border: 1px solid white;
+    outline: none;
+    background-color: $grapefruit-btn;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+  }
+  
+}
+
+.span-two {
+  grid-column: span 2;
+}
+
+#output {
+  grid-column: 1 / -1;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  flex-direction: column;
+  padding: 10px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.previous-operand {
+  color: $grapefruit-output-1;
+  font-size: 1.5rem;
+}
+
+.current-operand {
+  color: $grapefruit-output-2;
+  font-size: 2.5rem;
+}
