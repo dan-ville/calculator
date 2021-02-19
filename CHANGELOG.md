@@ -45,3 +45,10 @@ No clue why this worked though.
 
 ### Todo
 Install a theme switcher with a toggle button.
+
+## Verison 0.3
+Added sidebar.
+
+### TODO
+Add themes
+Make calculator grid and sidebar responsive (media queries). 

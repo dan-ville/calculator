@@ -1,3 +1,7 @@
+.jungle {
+  background-color: rgba(8, 252, 0, 0.7);
+}
+
 *,
 *::before,
 *::after {
@@ -16,14 +20,50 @@ body {
   color: white;
 }
 
+h1 {
+  font-size: 2rem;
+  color: orangered;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+em {
+  color: orangered;
+}
+
 #app-grid {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 400px 1fr;
+      grid-template-columns: 400px 1fr;
+  min-height: 100vh;
+}
+
+#sidebar {
+  padding: 2rem;
+  background-color: #041420;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin: auto;
+  max-height: 100vh;
+  border-right: 10px solid rgba(255, 255, 255, 0.5);
+}
+
+#toggle-options {
+  margin-top: 6rem;
+}
+
+[data-toggle] {
+  width: 100px;
 }
 
 #calc-grid {
@@ -34,7 +74,7 @@ body {
           justify-content: center;
   -ms-flex-line-pack: center;
       align-content: center;
-  min-height: 100vh;
+  max-height: 100vh;
   -ms-grid-columns: (100px)[4];
       grid-template-columns: repeat(4, 100px);
   -ms-grid-rows: minmax(120px, auto) (100px)[5];
