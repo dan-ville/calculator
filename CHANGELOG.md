@@ -23,4 +23,25 @@ delete @ calc.js:19
 
 ### Todo
 Fix number formatting
-Install a theme switcher
+
+## Version 0.2
+### Fixes
+Bug 0.1 fixed by implementing the formatNumber() method.
+
+Bug 0.2 fixed by modifying delete() method so that it converts value to string first. 
+Changed from:
+```js
+delete() {
+    this.currentOperand = this.currentOperand.slice(0, -1);
+}
+```
+To:
+```js
+delete() {
+    this.currentOperand = this.currentOperand.toString().slice(0, -1);
+  }
+```
+No clue why this worked though.
+
+### Todo
+Install a theme switcher with a toggle button.

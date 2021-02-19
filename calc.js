@@ -16,13 +16,20 @@ class Calculator {
   }
 
   delete() {
-    this.currentOperand = this.currentOperand.slice(0, -1);
+    this.currentOperand = this.currentOperand.toString().slice(0, -1);
   }
   
   // this is for choosing the operation symbols
   chooseOperation(operation) {
+    // If the user hasn't inserted any numbers, the operation buttons should not trigger anything. This checks for that situation.
     if (this.currentOperand === "") return;
 
+    // This allows for computations consecutively without the user always needing to hit the equals button. Computations will automatically occur if the user performs multiple operations, and the result will be set to the previousOperand and will be displayed.
+    if (this.previousOperand !== '') {
+        this.compute();
+    }
+
+    // In all other cases, create update these properties
     this.operation = operation;
     this.previousOperand = this.currentOperand;
     this.currentOperand = "";
@@ -35,6 +42,9 @@ class Calculator {
     // parse the previousOperand and currentOperand and turn them into floats because they are handled as strings until the equals button is pressed
     let prev = parseFloat(this.previousOperand);
     let current = parseFloat(this.currentOperand);
+
+    // check if they are both valid integers
+    if (isNaN(prev) || isNaN(current)) return;
 
     // switch statement works off the innerText value of the operation button the user pressed, then sets the value of the local computation variable depending on the current values of previousOperand and currentOperand
     switch (this.operation) {
@@ -68,19 +78,46 @@ class Calculator {
     this.currentOperand = this.currentOperand.toString() + number.toString();
   }
 
-  // formats the number so that it will properly
-  formatNumber () {
-    this.currentOperand = this.currentOperand.toLocaleString('en')
+  // This is a helper function that can will take in the numbers to be used in the display and show them properly formatted with comma separation
+  formatNumber (number) {
+    // turn it into a string so it can be split and formatted with toLocaleString
+    const stringNumber = number.toString()
+    // the number must be split into two pieces; integer values (before the period) and decimal values (after the period)  
+    // integers can be turned back into a number
+    const integers = parseFloat(stringNumber.split('.')[0]);
+    // decimals can stay as a string because decimal places do not needed comma separated formatting
+    const decimals = stringNumber.split('.')[1];
+    
+    // create a variable to hold the transformation of the integers variable
+    let integerDisplay
+    // if integers is not a number, it's likely because the user wanted to start with a decimal, in which case we want to display an empty string for the integer part
+    if (isNaN(integers)) {
+        integerDisplay = ''
+    } else {
+        // in all other cases, format the integer with commas
+        integerDisplay = integers.toLocaleString("en", {
+          maximumFractionDigits: 0,
+        }); 
+    }
+    // if the decimal places exist, let integerDisplay be concatenated with it and return the string
+    if (decimals != null) {
+        return `${integerDisplay}.${decimals}`
+    } else {
+        // otherwise, the user didn't want any decimals in the number, so we only need to display integers
+        return integerDisplay
+    }
   }
 
+  
+  
   updateDisplay() {
     // set the inner text of the html element to the value of the currentOperand property to reflect the number the user wants
-    this.currentOperandTextElement.innerText = this.currentOperand;
+    this.currentOperandTextElement.innerText = this.formatNumber(this.currentOperand);
 
     // check if an operation button has been pressed
     if (this.operation != null) {
       // the previous operand display will show a concatenation of previousOperand and the operation symbol
-      this.previousOperandTextElement.innerText = `${this.previousOperand} ${this.operation}`;
+      this.previousOperandTextElement.innerText = `${this.formatNumber(this.previousOperand)} ${this.operation}`;
     } else {
       // If `this.operation` is null, it means an operation button has not been pressed. Therefore, display an empty string. This should only be the case after the user hits the equal sign. Without it, the user would hit equals and the display would show 'undefined'.
       this.previousOperandTextElement.innerText = "";
